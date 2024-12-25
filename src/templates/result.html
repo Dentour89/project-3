@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результат проверки</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+
+        .result-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #007BFF;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table thead {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .good-result {
+            color: green;
+            font-weight: bold;
+        }
+
+        .bad-result {
+            color: red;
+            font-weight: bold;
+        }
+
+        .back_button, a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007BFF;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back_button:hover, a:hover {
+            background-color: #0056b3;
+        }
+
+        .highlight {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .final-result {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h1>Результат проверки</h1>
+
+        <p class="highlight">Начальная точка: {{ start }}</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Максимальная температура</th>
+                    <th>Минимальная температура</th>
+                    <th>Влажность</th>
+                    <th>Скорость ветра (км/ч)</th>
+                    <th>Вероятность осадков (%)</th>
+                    <th>Результат</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in city1_weather %}
+                <tr>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.max_temp }}</td>
+                    <td>{{ item.min_temp }}</td>
+                    <td>{{ item.humidity }}</td>
+                    <td>{{ item.wind_speed }}</td>
+                    <td>{{ item.rain_probability }}</td>
+                    <td class="{{ 'bad-result' if item.is_bad() else 'good-result' }}">{{ '🔴' if item.is_bad() else '🟢' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% for i in range(count) %}
+        <p class="highlight">{{ stops[i] }}:</p>
+        <a href="/view/{{ stops[i] }}">Посмотреть подробнее</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Максимальная температура</th>
+                    <th>Минимальная температура</th>
+                    <th>Влажность</th>
+                    <th>Скорость ветра (км/ч)</th>
+                    <th>Вероятность осадков (%)</th>
+                    <th>Результат</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in stops_weather[i] %}
+                <tr>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.max_temp }}</td>
+                    <td>{{ item.min_temp }}</td>
+                    <td>{{ item.humidity }}</td>
+                    <td>{{ item.wind_speed }}</td>
+                    <td>{{ item.rain_probability }}</td>
+                    <td class="{{ 'bad-result' if item.is_bad() else 'good-result' }}">{{ '🔴' if item.is_bad() else '🟢' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+
+        <p class="highlight">Конечная точка: {{ end }}</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Максимальная температура</th>
+                    <th>Минимальная температура</th>
+                    <th>Влажность</th>
+                    <th>Скорость ветра (км/ч)</th>
+                    <th>Вероятность осадков (%)</th>
+                    <th>Результат</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in city2_weather %}
+                <tr>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.max_temp }}</td>
+                    <td>{{ item.min_temp }}</td>
+                    <td>{{ item.humidity }}</td>
+                    <td>{{ item.wind_speed }}</td>
+                    <td>{{ item.rain_probability }}</td>
+                    <td class="{{ 'bad-result' if item.is_bad() else 'good-result' }}">{{ '🔴' if item.is_bad() else '🟢' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="final-result">
+            {{ 'Погода во время поездки может быть плохой' if result else 'Погода во время поездки должна быть хорошей' }}
+        </div>
+
+        <a href="/check_weather" class="back_button">Назад</a>
+    </div>
+</body>
+</html>

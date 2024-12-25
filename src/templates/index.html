@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Приложение</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #edf2f7;
+            color: #2d3748;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #2b6cb0;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #4a5568;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        ul {
+            text-align: left;
+            padding-left: 40px;
+            color: #2d3748;
+        }
+
+        ul li {
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        .main-menu-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            background: #3182ce;
+            font-weight: bold;
+            padding: 12px 25px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .main-menu-link:hover {
+            background: #2b6cb0;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Приложение</h1>
+        <p>Это приложение поможет путешественникам планировать свои поездки с учетом погодных условий на маршруте. Укажите начальную и конечную точки путешествия, чтобы получить актуальные прогнозы погоды и обеспечить безопасное и комфортное путешествие.</p>
+        <h2>Наши услуги</h2>
+        <ul>
+            <li>Прогноз погоды в начальной и конечной точках вашего маршрута</li>
+            <li>Прогноз погоды на каждый день вашего путешествия</li>
+            <li>Прогноз погоды на всём маршруте</li>
+            <li>Рекомендации по посещению мест в зависимости от погоды</li>
+        </ul>
+        <p><a href="/check_weather/0" class="main-menu-link">Вперёд!</a></p>
+    </div>
+</body>
+</html>
